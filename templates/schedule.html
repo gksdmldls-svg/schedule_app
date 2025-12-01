@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>한의인 웹 계산기 백엔드 연결</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            display: flex;
+            justify-content: center;
+            padding-top: 80px;
+        }
+
+        .calculator-box {
+            background: white;
+            width: 350px;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        input {
+            width: 120px;
+            padding: 10px;
+            margin: 8px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 6px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            background: #4a90e2;
+            color: white;
+            transition: 0.2s;
+        }
+
+        button:hover {
+            background: #357ab8;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 22px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="calculator-box">
+    <h1>백엔드와 연결된 웹 계산기</h1>
+
+    <input id="num1" type="number" placeholder="첫 숫자">
+    <input id="num2" type="number" placeholder="둘째 숫자">
+    
+    <br><br>
+
+    <button onclick="send('add')">더하기</button>
+    <button onclick="send('sub')">빼기</button>
+    <button onclick="send('mul')">곱하기</button>
+    <button onclick="send('div')">나누기</button>
+
+    <h2 id="result">결과: </h2>
+
+    <script>
+        function send(op) {
+            let a = document.getElementById("num1").value;
+            let b = document.getElementById("num2").value;
+
+            fetch("http://127.0.0.1:5000/calculate", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ a: a, b: b, op: op })
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById("result").innerText = "결과: " + data.result;
+            });
+        }
+    </script>
+
+</body>
+</html>
