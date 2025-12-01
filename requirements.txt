@@ -1,9 +1,3 @@
 flask
 flask-cors
 gunicorn
-
-schedule_app/
-    app.py
-    requirements.txt
-    templates/
-        schedule.html

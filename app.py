@@ -6,7 +6,7 @@ CORS(app)
 
 @app.route("/")
 def index():
-    return render_template("schdule.html")
+    return render_template("schedule.html")
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
