@@ -1,9 +1,13 @@
-from flask import Flask, request, jsonify # Flask = 서버 만드는 도구, request = 프론트에서 보낸
+from flask import Flask, request, jsonify, render_template # Flask = 서버 만드는 도구, request = 프론트에서 보낸
 from flask_cors import CORS # CORS = 프론트에서 서버로 요청할 때 허용해주는 기능
 import sqlite3
 
 app = Flask(__name__)                     # Flask 서버 생성
 CORS(app)                                 # 모든 프론트 요청 허용
+
+@app.route("/")
+def home():
+    return render_template("schedule.html")
 
 #-------------------------
 # DB 연결 + 테이블 생성
